@@ -1,6 +1,6 @@
 #include<stdint.h>
 
-typedef struct cpu
+typedef struct REG
 {
     union
     {
@@ -24,4 +24,6 @@ typedef struct cpu
     uint64_t rbp;
     uint64_t rsp;
 
-}cpu_t;
+}reg_t;
+
+reg_t reg;  // 寄存器 x86架构（IA32）

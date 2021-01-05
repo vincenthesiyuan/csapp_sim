@@ -1,10 +1,9 @@
 #include<stdlib.h>
 
+#include "cpu/register.h"
 #include "memory/instruction.h"
 
-
-
-void add_reg_reg_handler(uint64_t src, uint64_t dst)
+inst_t program[15] = 
 {
     
 }

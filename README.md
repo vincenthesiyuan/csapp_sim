@@ -1,2 +1,3 @@
 # csapp_sim
-CSAPP lab and CPU simulator code
+
+CSAPP lab and Register simulator
