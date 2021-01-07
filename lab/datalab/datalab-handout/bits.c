@@ -165,9 +165,7 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-
-  return 
-
+  return !((x^(x+1)) | (!(~x)));
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -204,7 +202,7 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return 2;
+  return !(((!!((x>>4)^3))|(x>>3&x>>1)|(x>>3&x>>2))&1);
 }
 /* 
  * conditional - same as x ? y : z 
