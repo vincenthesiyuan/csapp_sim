@@ -38,6 +38,10 @@ typedef struct OD
 typedef struct INSTRUCT_STRUCT
 {
     // 指令集
+    op_t op;  // mov, push and so on
+    od_t src;
+    od_t dst;
+    char code[100];
 } inst_t;  
 
 
