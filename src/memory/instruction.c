@@ -4,6 +4,7 @@
 #include "memory/instruction.h"
 
 
+// interpret the operand
 static uint64_t decode_operand(od_t *od)
 {
     if(od->type == IMM)
@@ -20,20 +21,21 @@ static uint64_t decode_operand(od_t *od)
     }
     else
     {
-        
-    }
     
+    }
 
 }
-
-
 
 
 void instruction_cycle()
 {
-    
+
 }
 
+void mov_reg_reg_handler(uint64_t src, uint64_t dst)
+{
+    
+}
 
 
 

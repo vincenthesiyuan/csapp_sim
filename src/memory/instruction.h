@@ -1,6 +1,7 @@
 #include<stdint.h>
 #include<stdlib.h>
 
+
 #define NUM_INSTRTYPE 30
 
 typedef enum OP
