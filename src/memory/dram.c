@@ -26,8 +26,6 @@ uint64_t read64bits_dram(uint64_t paddr)
 
     uint64_t val = 0x0;
 
-    val += 
-
 
 
     return 0;

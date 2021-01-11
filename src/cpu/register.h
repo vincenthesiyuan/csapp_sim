@@ -1,5 +1,25 @@
 #include<stdint.h>
 
+
+/*****************************/
+/*         64位寄存器         */
+/*****************************/
+
+
+// 通用寄存器：rax, rbx, rcx, rdx
+// 栈寄存器：rsp(栈顶指针寄存器), rbp(栈基址寄存器)
+// 指令寄存器：rip
+// 传参寄存器：rcx, rdx, r8, r9
+// scratch寄存器：bx,r12, r13, r14, r15(scratch)，需要保护
+
+
+// rax，rcx，rdx，r8，r9，r10，r11是“易挥发”的，不用特别保护(push备份），其余寄存器需要保护
+
+
+
+
+// 这里暂时先写32位的寄存器，后面会修改
+
 typedef struct REG
 {
     union
@@ -23,6 +43,7 @@ typedef struct REG
     uint64_t rdi;
     uint64_t rbp;
     uint64_t rsp;
+    uint64_t rip; 
 
 }reg_t;
 

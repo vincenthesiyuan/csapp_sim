@@ -1,3 +1,6 @@
+#ifndef INSTR_GUARD
+#define INSTR_GUARD
+
 #include<stdint.h>
 #include<stdlib.h>
 
@@ -40,8 +43,8 @@ typedef struct INSTRUCT_STRUCT
 {
     // 指令集
     op_t op;  // mov, push and so on
-    od_t src;
-    od_t dst;
+    od_t *src;
+    od_t *dst;
     char code[100];
 } inst_t;  
 
@@ -60,5 +63,5 @@ void mov_reg_reg_handler(uint64_t src, uint64_t dst);
 
 void add_reg_reg_handler(uint64_t src, uint64_t dst);
 
-
+#endif
 
