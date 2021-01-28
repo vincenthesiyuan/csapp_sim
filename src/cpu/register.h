@@ -17,9 +17,6 @@
 
 
 
-
-// 这里暂时先写32位的寄存器，后面会修改
-
 typedef struct REG
 {
     union

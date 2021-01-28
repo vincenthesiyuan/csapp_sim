@@ -71,6 +71,10 @@ void instruction_cycle()
     uint64_t src = decode_operand(instr->src);
     uint64_t dst = decode_operand(instr->dst);
 
+    handler_t handler = handler_table[instr->op];
+
+    handler(src, dst);
+
 }
 
 void init_handler_table()
