@@ -3,9 +3,8 @@
 #include "cpu/register.h"
 #include "memory/instruction.h"
 #include "cpu/mmu.h"
+#include "memory/dram.h"
 
-
-// interpret the operand
 static uint64_t decode_operand(od_t *od)
 {
     if(od->type == IMM)
@@ -22,9 +21,47 @@ static uint64_t decode_operand(od_t *od)
     }
     else
     {
-    
-    }
+        uint64_t vaddr = 0;
 
+        if(od->type == MM_IMM)
+        {
+            vaddr = od->imm;
+        }
+        else if(od->type == MM_REG)
+        {
+            vaddr = *((uint64_t *)od->reg1);
+        }
+        else if(od->type == MM_IMM_REG)
+        {
+            vaddr = od->imm + *((uint64_t *)od->reg1);
+        }
+        else if(od->type == MM_REG1_REG2)
+        {
+            vaddr = *((uint64_t *)od->reg1) + *((uint64_t *)od->reg2);
+        }
+        else if(od->type == MM_IMM_REG1_REG2)
+        {
+            vaddr = od->imm + *((uint64_t *)od->reg1) + *((uint64_t *)od->reg2);
+        }
+        else if(od->type == MM_REG2_S)
+        {
+            vaddr = *((uint64_t *)od->reg2) * od->scal;
+        }
+        else if(od->type == MM_IMM_REG2_S)
+        {
+            vaddr = od->imm + *((uint64_t *)od->reg2) * od->scal;
+        }
+        else if(od->type == MM_REG1_REG2_S)
+        {
+            vaddr = *((uint64_t *)od->reg1) + *((uint64_t *)od->reg2) * od->scal;
+        }
+        else if(od->type == MM_IMM_REG1_REG2_S)
+        {
+            vaddr = od->imm + *((uint64_t *)od->reg1) + *((uint64_t *)od->reg2) * od->scal;
+        }
+        return vaddr;
+    }
+    return 0;
 }
 
 void instruction_cycle()
@@ -34,15 +71,13 @@ void instruction_cycle()
     uint64_t src = decode_operand(instr->src);
     uint64_t dst = decode_operand(instr->dst);
 
-
-
-
 }
 
 void init_handler_table()
 {
-    
+
 }
+
 
 void mov_reg_reg_handler(uint64_t src, uint64_t dst)
 {
@@ -52,5 +87,17 @@ void mov_reg_reg_handler(uint64_t src, uint64_t dst)
 
 void add_reg_reg_handler(uint64_t src, uint64_t dst)
 {
-    
+    *(uint64_t *)dst = *(uint64_t *)src + *(uint64_t *)dst;
+    reg.rip = reg.rip + sizeof(inst_t);
+}
+
+void call_handler(uint64_t src, uint64_t dst)
+{
+}
+
+void return_handler(uint64_t src, uint64_t dst)
+{
+    uint64_t ret_addr = read64bits_dram(va2pa(reg.rsp));
+    reg.rsp += 8;
+    reg.rip = ret_addr;
 }

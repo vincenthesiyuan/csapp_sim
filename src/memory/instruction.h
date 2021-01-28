@@ -22,10 +22,17 @@ typedef enum OP
 typedef enum OD_TYPE
 {
     EMPTY, 
-    IMM, REG,
-    MM_IMM, MM_REG, MM_IMM_REG, MM_REG1_REG2,
-    MM_IMM_REG1_REG2, MM_REG1_S, MM_IMM_REG2_S, 
-    MM_REG1_REG2_S, MM_IMM_REG1_REG2_S
+    IMM,
+    REG,
+    MM_IMM,
+    MM_REG,
+    MM_IMM_REG,
+    MM_REG1_REG2,
+    MM_IMM_REG1_REG2,
+    MM_REG2_S,
+    MM_IMM_REG2_S, 
+    MM_REG1_REG2_S,
+    MM_IMM_REG1_REG2_S
 } od_type_t;
 
 typedef struct OD
@@ -33,15 +40,14 @@ typedef struct OD
     // operand
     od_type_t type;
 
-    int64_t imm;
-    int64_t scal;
-    uint64_t *reg1;
-    uint64_t *reg2;
+    int64_t imm;        // 立即数偏移
+    int64_t scal;       // 比例因子
+    uint64_t reg1;     // 基址寄存器
+    uint64_t reg2;     // 变址寄存器
 } od_t;
 
 typedef struct INSTRUCT_STRUCT
 {
-    // 指令集
     op_t op;  // mov, push and so on
     od_t *src;
     od_t *dst;
@@ -62,6 +68,11 @@ void instruction_cycle();
 void mov_reg_reg_handler(uint64_t src, uint64_t dst);
 
 void add_reg_reg_handler(uint64_t src, uint64_t dst);
+
+void call_handler(uint64_t src, uint64_t dst);
+
+void return_handler(uint64_t src, uint64_t dst);
+
 
 #endif
 
