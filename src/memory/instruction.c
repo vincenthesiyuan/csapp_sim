@@ -75,7 +75,10 @@ void instruction_cycle()
 
 void init_handler_table()
 {
-
+    handler_table[0] = &mov_reg_reg_handler;
+    handler_table[5] = &call_handler;
+    handler_table[6] = &return_handler;
+    handler_table[7] = &add_reg_reg_handler;
 }
 
 
