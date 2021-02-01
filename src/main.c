@@ -11,33 +11,33 @@ int main()
 {
     init_handler_table();
 
-    reg.rax = 0x1234;
+    reg.rax = 0x12340000;
     reg.rbx = 0x0;
     reg.rcx = 0x555555554630;
-    reg.rdx = 0xabcd0000;
-    reg.rsi = 0x7fffffffdbc8;
+    reg.rdx = 0xabcd;
+    reg.rsi = 0x7fffffffdbd8;
     reg.rdi = 0x1;
-    reg.rbp = 0x7fffffffdae0;
-    reg.rsp = 0x7fffffffdac0;
+    reg.rbp = 0x7fffffffdaf0;
+    reg.rsp = 0x7fffffffdad0;
 
     reg.rip = (uint64_t)&program[11];
 
-    write64bits_dram(va2pa(0x7fffffffdae4), 0x00005555);
-    write64bits_dram(va2pa(0x7fffffffdae0), 0x55554630);
-    write64bits_dram(va2pa(0x7fffffffdad8), 0x00000000);
-    write64bits_dram(va2pa(0x7fffffffdad0), 0x0000abcd);
-    write64bits_dram(va2pa(0x7fffffffdac8), 0x12340000);
-    write64bits_dram(va2pa(0x7fffffffdac4), 0x00005555);
-    write64bits_dram(va2pa(0x7fffffffdac0), 0x55554630);
+    write64bits_dram(va2pa(0x7fffffffdaf0), 0x55554630);
+    write64bits_dram(va2pa(0x7fffffffdae8), 0x00000000);
+    write64bits_dram(va2pa(0x7fffffffdae0), 0x0000abcd);
+    write64bits_dram(va2pa(0x7fffffffdad8), 0x12340000);
+    write64bits_dram(va2pa(0x7fffffffdad0), 0x55554630);    
 
-    // debug read and write
-    printf("read data %lx \n", read64bits_dram(va2pa(0x7fffffffdac0)));
+    print_register();
+    print_stack();
 
 
     // run inst
-    for(int i = 0; i<0; i++)
+    for(int i = 0; i<1; i++)
     {
         instruction_cycle();
+        print_register();
+        print_stack();
     }
 
 

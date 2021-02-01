@@ -47,6 +47,6 @@ typedef struct REG
 
 }reg_t;
 
-reg_t reg;  // 寄存器 x86架构（IA32）
+reg_t reg;  // 寄存器 x86-64架构
 
 #endif

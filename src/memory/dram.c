@@ -1,6 +1,8 @@
 #include<stdint.h>
 #include<stdlib.h>
+#include<stdio.h>
 
+#include "cpu/register.h"
 #include "cpu/mmu.h"
 #include "memory/dram.h"
 
@@ -46,4 +48,38 @@ uint64_t read64bits_dram(uint64_t paddr)
     val += ((uint64_t)mm[paddr + 7] << 56);
 
     return val;
+}
+
+void print_register()
+{
+    printf("rax = %16lx \t rbx = %16lx \t rcx = %16lx \t rdx = %16lx\n", 
+            reg.rax, reg.rbx, reg.rcx, reg.rdx);
+    printf("rsi = %16lx \t rdi = %16lx \t rbp = %16lx \t rsp = %16lx\n", 
+            reg.rsi, reg.rdi, reg.rbp, reg.rsp);
+    printf("rip = %16lx \n", reg.rip);
+}
+
+void print_stack()
+{
+    int n = 10;  // print 10 * 32bit value in rsp
+
+    uint64_t *high = (uint64_t *)&mm[va2pa(reg.rsp)];
+    high = &high[n];
+
+    uint64_t rsp_start = reg.rsp + 8 * n;
+
+    for(int i=0; i < 2*n; ++i)
+    {
+        uint64_t *ptr = (uint64_t *)(high - i);
+        printf("0x%016lx : %16lx", rsp_start, (uint64_t)*ptr);
+
+        if(i == n)
+        {
+            printf(" <== rsp");
+        }
+
+        rsp_start = rsp_start - 8;
+
+        printf("\n");
+    }
 }

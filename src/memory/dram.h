@@ -8,10 +8,14 @@
 uint8_t mm[MM_LEN];
 
 
-
 void write64bits_dram(uint64_t paddr, uint64_t data);
 
 uint64_t read64bits_dram(uint64_t paddr);
 
+
+// print tools
+void print_register();
+
+void print_stack();
 
 #endif
