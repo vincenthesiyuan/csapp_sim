@@ -9,11 +9,11 @@ static uint64_t decode_operand(od_t *od)
 {
     if(od->type == IMM)
     {
-        return *(uint64_t *)&od->imm;
+        return od->imm;
     }
     else if(od->type == REG)
     {
-        return od->reg1;
+        return *((uint64_t *)od->reg1);
     }
     else if(od->type == EMPTY)
     {
@@ -25,7 +25,7 @@ static uint64_t decode_operand(od_t *od)
 
         if(od->type == MM_IMM)
         {
-            vaddr = od->imm;
+            vaddr = *(uint64_t *)&od->imm;
         }
         else if(od->type == MM_REG)
         {
@@ -68,8 +68,8 @@ void instruction_cycle()
 {
     inst_t *instr = (inst_t *)reg.rip;
 
-    uint64_t src = decode_operand(instr->src);
-    uint64_t dst = decode_operand(instr->dst);
+    uint64_t src = decode_operand(&(instr->src));
+    uint64_t dst = decode_operand(&(instr->dst));
 
     handler_t handler = handler_table[instr->op];
 

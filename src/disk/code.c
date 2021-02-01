@@ -89,7 +89,7 @@ inst_t program[15] =
     // call
     {
         call,
-        {IMM,   (uint64_t *)&program[0], 0, NULL, NULL},
+        {IMM,   (uint64_t)&program[0], 0, NULL, NULL},
         {EMPTY, 0,                       0, NULL, NULL},
         "callq  5d5 <add>"
     },

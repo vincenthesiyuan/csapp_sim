@@ -42,15 +42,15 @@ typedef struct OD
 
     int64_t imm;        // 立即数偏移
     int64_t scal;       // 比例因子
-    uint64_t reg1;     // 基址寄存器
-    uint64_t reg2;     // 变址寄存器
+    uint64_t *reg1;     // 基址寄存器
+    uint64_t *reg2;     // 变址寄存器
 } od_t;
 
 typedef struct INSTRUCT_STRUCT
 {
     op_t op;  // mov, push and so on
-    od_t *src;
-    od_t *dst;
+    od_t src;
+    od_t dst;
     char code[100];
 } inst_t;  
 

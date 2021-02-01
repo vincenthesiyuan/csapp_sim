@@ -4,7 +4,7 @@
 #include "cpu/register.h"
 #include "cpu/mmu.h"
 #include "memory/instruction.h"
-#include "disk/code.c"
+#include "disk/code.h"
 #include "memory/dram.h"
 
 int main()
@@ -22,17 +22,20 @@ int main()
 
     reg.rip = (uint64_t)&program[11];
 
-    mm[va2pa(0x7fffffffdae4)] = 0x00005555;
-    mm[va2pa(0x7fffffffdae0)] = 0x55554630;   // rbp
-    mm[va2pa(0x7fffffffdad8)] = 0x00000000;
-    mm[va2pa(0x7fffffffdad0)] = 0xabcd0000;
-    mm[va2pa(0x7fffffffdac8)] = 0x00001234;
-    mm[va2pa(0x7fffffffdac4)] = 0x00005555;
-    mm[va2pa(0x7fffffffdac0)] = 0x55554630;   // rsp
+    write64bits_dram(va2pa(0x7fffffffdae4), 0x00005555);
+    write64bits_dram(va2pa(0x7fffffffdae0), 0x55554630);
+    write64bits_dram(va2pa(0x7fffffffdad8), 0x00000000);
+    write64bits_dram(va2pa(0x7fffffffdad0), 0x0000abcd);
+    write64bits_dram(va2pa(0x7fffffffdac8), 0x12340000);
+    write64bits_dram(va2pa(0x7fffffffdac4), 0x00005555);
+    write64bits_dram(va2pa(0x7fffffffdac0), 0x55554630);
+
+    // debug read and write
+    printf("read data %lx \n", read64bits_dram(va2pa(0x7fffffffdac0)));
 
 
     // run inst
-    for(int i = 0; i<15; i++)
+    for(int i = 0; i<0; i++)
     {
         instruction_cycle();
     }

@@ -1,3 +1,6 @@
+#ifndef REG_GUARD
+#define REG_GUARD
+
 #include<stdint.h>
 
 
@@ -45,3 +48,5 @@ typedef struct REG
 }reg_t;
 
 reg_t reg;  // 寄存器 x86架构（IA32）
+
+#endif
